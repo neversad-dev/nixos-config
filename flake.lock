@@ -20,6 +20,22 @@
         "type": "github"
       }
     },
+    "dotfiles": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1767302947,
+        "narHash": "sha256-bvg5Xkc3o4P9eERO6ed3B84XUoM1BMlC3pmbNFRL3LI=",
+        "ref": "refs/heads/master",
+        "rev": "0bf2241da79801f69180dc3a55abd27ddcac4726",
+        "revCount": 2,
+        "type": "git",
+        "url": "https://github.com/neversad-dev/dotfiles.git"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://github.com/neversad-dev/dotfiles.git"
+      }
+    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -107,6 +123,7 @@
     "root": {
       "inputs": {
         "deploy-rs": "deploy-rs",
+        "dotfiles": "dotfiles",
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs_2",
         "nixpkgs-stable": "nixpkgs-stable"

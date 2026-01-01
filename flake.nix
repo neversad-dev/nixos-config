@@ -19,6 +19,11 @@
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-23.11";
 
     deploy-rs.url = "github:serokell/deploy-rs";
+
+    dotfiles = {
+      url = "git+https://github.com/neversad-dev/dotfiles.git";
+      flake = false;
+    };
   };
 
   outputs = {
