@@ -20,6 +20,11 @@
 
     deploy-rs.url = "github:serokell/deploy-rs";
 
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     dotfiles = {
       url = "git+https://github.com/neversad-dev/dotfiles.git";
       flake = false;
@@ -28,6 +33,7 @@
 
   outputs = {
     self,
+    disko,
     home-manager,
     nixpkgs,
     deploy-rs,
@@ -50,7 +56,10 @@
       dell = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
         system = "x86_64-linux";
-        modules = [./hosts/dell];
+        modules = [
+          inputs.disko.nixosModules.disko
+          ./hosts/dell
+        ];
       };
     };
     homeConfigurations = {

@@ -2,18 +2,29 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 {
+  config,
   pkgs,
   ...
 }: {
   imports = [
     # Include the results of the hardware scan.
+    ./disko-config.nix
     ./hardware-configuration.nix
   ];
 
   # Bootloader.
   boot.loader.grub.enable = true;
-  boot.loader.grub.device = "/dev/sda";
   boot.loader.grub.useOSProber = true;
+
+  disko.devices.disk.main.device = "/dev/sda";
+
+  # Swap configuration (swapfile on root filesystem)
+  swapDevices = [
+    {
+      device = "/swapfile";
+      size = 4096; # MiB (4GB)
+    }
+  ];
 
   networking.hostName = "dell"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -58,16 +69,6 @@
     neovim
     git
   ];
-
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
-
-  # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
   services.openssh = {

@@ -30,7 +30,7 @@ in {
         ];
 
         input = {
-          kb_layout = "ua,us";
+          kb_layout = "us,ua";
           kb_variant = "";
           kb_model = "";
           kb_rules = "";
