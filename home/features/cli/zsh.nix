@@ -15,6 +15,7 @@ in {
         export NIX_PATH=nixpkgs=channel:nixos-unstable
         export NIX_LOG=info
         export TERMINAL=kitty
+        source /run/agenix/${config.home.username}-secrets
 
         if [[ "$(tty)" == "/dev/tty1" ]]; then
           exec Hyprland &>/dev/null

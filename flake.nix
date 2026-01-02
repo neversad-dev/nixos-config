@@ -20,6 +20,8 @@
 
     deploy-rs.url = "github:serokell/deploy-rs";
 
+    agenix.url = "github:ryantm/agenix";
+    
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -34,6 +36,7 @@
   outputs = {
     self,
     disko,
+    agenix,
     home-manager,
     nixpkgs,
     deploy-rs,
@@ -58,6 +61,7 @@
         system = "x86_64-linux";
         modules = [
           inputs.disko.nixosModules.disko
+          agenix.nixosModules.default
           ./hosts/dell
         ];
       };
@@ -66,7 +70,10 @@
       "neversad@dell" = home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages."x86_64-linux";
         extraSpecialArgs = {inherit inputs outputs;};
-        modules = [./home/neversad/dell.nix];
+        modules = [
+          agenix.homeManagerModules.default
+          ./home/neversad/dell.nix
+        ];
       };
     };
     deploy = {
