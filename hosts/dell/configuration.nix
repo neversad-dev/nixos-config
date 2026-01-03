@@ -33,6 +33,7 @@
 
   # Enable networking
   networking.networkmanager.enable = true;
+  networking.networkmanager.unmanaged = ["interface-name:ve-*"];
 
   # Set your time zone.
   time.timeZone = "Europe/Kyiv";
@@ -83,10 +84,14 @@
   programs.zsh.enable = true;
 
   # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
+  networking.firewall.allowedTCPPorts = [80];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
-  networking.firewall.enable = false;
+  networking.nat.enable = true;
+  networking.nat.internalInterfaces = ["ve-+"];
+  networking.nat.externalInterface = "wlp2s0";
+
+  # networking.firewall.enable = false;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
