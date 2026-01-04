@@ -26,6 +26,7 @@
   home.packages = with pkgs; [
     kitty
     wofi
+    zellij-ps
 
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
