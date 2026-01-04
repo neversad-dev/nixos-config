@@ -5,6 +5,7 @@
   pkgs,
   ...
 }: {
+  imports = builtins.attrValues outputs.homeManagerModules;
   nixpkgs = {
     # You can add overlays here
     overlays = [
