@@ -26,6 +26,11 @@
   home.packages = with pkgs; [
     kitty
     wofi
+    firefox
+    # n8n-custom
+    # stable.n8n
+    n8n
+
 
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
@@ -85,7 +90,6 @@
   programs.zellij-ps = {
     enable = true;
     projectFolders = [
-      "${config.home.homeDirectory}/.config"
       "${config.home.homeDirectory}"
     ];
     layout = ''

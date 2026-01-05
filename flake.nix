@@ -16,12 +16,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-23.11";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.11";
 
     deploy-rs.url = "github:serokell/deploy-rs";
 
     agenix.url = "github:ryantm/agenix";
-    
+
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -35,7 +35,6 @@
 
   outputs = {
     self,
-    disko,
     agenix,
     home-manager,
     nixpkgs,
@@ -51,9 +50,18 @@
       "x86_64-darwin"
     ];
     forAllSystems = nixpkgs.lib.genAttrs systems;
+    # Configure nixpkgs with allowUnfree and fetcherVersion for packages output
+    pkgsFor = system:
+      import nixpkgs {
+        inherit system;
+        config = {
+          allowUnfree = true;
+          fetcherVersion = 7;
+        };
+      };
   in {
     packages =
-      forAllSystems (system: import ./pkgs nixpkgs.legacyPackages.${system});
+      forAllSystems (system: import ./pkgs (pkgsFor system));
     overlays = import ./overlays {inherit inputs;};
     homeManagerModules = import ./modules/home-manager;
     nixosConfigurations = {
@@ -69,7 +77,7 @@
     };
     homeConfigurations = {
       "neversad@dell" = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages."x86_64-linux";
+        pkgs = pkgsFor "x86_64-linux";
         extraSpecialArgs = {inherit inputs outputs;};
         modules = [
           agenix.homeManagerModules.default
