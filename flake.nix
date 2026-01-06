@@ -93,7 +93,9 @@
           profiles.system = {
             sshUser = "neversad";
             user = "root"; # regular user for home-manager
-            interactiveSudo = true;
+            # Set to false after first deployment when sudo config is active
+            # You'll need to deploy once with true (entering password) to activate the sudo config
+            interactiveSudo = false;
             remoteBuild = true;
             path =
               deploy-rs.lib.x86_64-linux.activate.nixos

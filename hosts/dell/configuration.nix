@@ -91,6 +91,13 @@
   networking.nat.internalInterfaces = ["ve-+"];
   networking.nat.externalInterface = "wlp2s0";
 
+  #security.sudo.wheelNeedsPassword = false;
+
+  # Allow neversad to use sudo without password
+  security.sudo.extraConfig = ''
+    neversad ALL=(ALL) NOPASSWD: ALL
+  '';
+
   # networking.firewall.enable = false;
 
   # This value determines the NixOS release from which the default
